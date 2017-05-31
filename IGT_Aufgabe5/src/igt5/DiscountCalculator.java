@@ -15,9 +15,12 @@ public class DiscountCalculator {
 		Customer current = handler.getCustomer(username);
 		if (current != null) {
 			// Calculate Discount
-			return handler.calculateDiscount(current);
+			int discount = handler.calculateDiscount(current);
+			System.out.println(discount);
+			return discount;
 		} else {
 			// no Customer found
+			System.out.println(0);
 			return 0;
 		}
 	}

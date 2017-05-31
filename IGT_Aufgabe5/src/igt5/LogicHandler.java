@@ -23,7 +23,7 @@ public class LogicHandler {
 	
 	public LogicHandler() {
 		try {
-			factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+			factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Customer.class).buildSessionFactory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,7 +43,7 @@ public class LogicHandler {
 			trans = session.beginTransaction();
 			
 			// Setup Query and Parameter
-			SQLQuery qry = session.createSQLQuery("SELECT * FROM customer WHERE customer.C_UNAME = :username");
+			SQLQuery qry = session.createSQLQuery("SELECT * FROM CUSTOMER WHERE CUSTOMER.C_UNAME = :username");
 			qry.addEntity(Customer.class);
 			qry.setParameter("username", username);
 			
@@ -55,6 +55,8 @@ public class LogicHandler {
 				myCustomer = null;
 			} else {
 				myCustomer = customer.get(0);
+				System.out.println(customer.get(0).getCUname());
+				System.out.println(customer.get(0).getCEmail());
 			}
 			
 			trans.commit();
