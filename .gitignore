@@ -27,3 +27,5 @@ hs_err_pid*
 # Eclipse
 .settings/
 .classpath
+IGT_Aufgabe5/target/
+IGT_Aufgabe5_Client/build/
