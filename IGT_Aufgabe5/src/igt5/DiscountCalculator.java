@@ -14,6 +14,7 @@ public class DiscountCalculator {
 		// Check if Customer is available
 		Customer current = handler.getCustomer(username);
 		if (current != null) {
+			System.out.println("is not null");
 			// Calculate Discount
 			int discount = handler.calculateDiscount(current);
 			System.out.println(discount);

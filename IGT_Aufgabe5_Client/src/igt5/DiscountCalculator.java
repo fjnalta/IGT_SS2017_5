@@ -23,7 +23,7 @@ public class DiscountCalculator {
 				myDiscount.setUsername(username);
 				DiscountCalculatorStub.GetDiscountResponse myResponse = stub.getDiscount(myDiscount);
 				
-				System.out.println(myResponse);
+				System.out.println(myResponse.get_return());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
