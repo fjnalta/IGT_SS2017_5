@@ -55,8 +55,6 @@ public class LogicHandler {
 				myCustomer = null;
 			} else {
 				myCustomer = customer.get(0);
-				System.out.println(customer.get(0).getCUname());
-				System.out.println(customer.get(0).getCEmail());
 			}
 			
 			trans.commit();
@@ -74,7 +72,7 @@ public class LogicHandler {
 	 * @returns the integer value of the given discount
 	 */
 	public int calculateDiscount(Customer customer) {
-		if (has10PercentOverall(customer) || has20PercentFromPeerGroup(customer)) {
+		if (has10PercentOverall(customer) | has20PercentFromPeerGroup(customer)) {
 			return 10;
 		} else {
 			return 0;
@@ -82,7 +80,14 @@ public class LogicHandler {
 	}
 	
 	private boolean has10PercentOverall(Customer customer) {
-		if(getTotalUserRevenue(customer) / getTotalRevenue() > 0.1) {
+		double user = getTotalUserRevenue(customer);
+		double total = getTotalRevenue();
+		
+		System.out.println(user + "userRevenue");
+		System.out.println(total + "totalRevenue");
+		
+		if (user / total > 0.1) {
+			System.out.println("has10Percent is true");
 			return true;
 		} else {
 			return false;
@@ -93,7 +98,11 @@ public class LogicHandler {
 		double userRevenue = getTotalUserRevenue(customer);
 		double peerGroupRevenue = getTotalPeerGroupRevenue(customer);
 		
+		System.out.println(userRevenue + "userRevenue");
+		System.out.println(peerGroupRevenue + "peerGroupRevenue");
+		
 		if( userRevenue / peerGroupRevenue > 0.2) {
+			System.out.println("has20PercentFromPeer is true");
 			return true;
 		} else {
 			return false;
@@ -110,7 +119,7 @@ public class LogicHandler {
 			
 			// Setup Query
 			SQLQuery qry = session.createSQLQuery("SELECT SUM(CUSTOMER.C_YTD_PMT) FROM CUSTOMER");
-			revenue = (double) qry.uniqueResult();
+			revenue =  (double) qry.uniqueResult();
 
 			trans.commit();
 		} catch (Exception e) {
@@ -165,6 +174,13 @@ public class LogicHandler {
 			qry.setParameter("minDate", minDate);
 			qry.setParameter("maxDate", maxDate);
 			revenue = (double) qry.uniqueResult();
+//			System.out.println(revenue);
+			
+//			Long newRevenue = (new Double(revenue)).longValue();
+//			revenue = newRevenue.longValue();
+//			System.out.println(newRevenue);
+//			System.out.println(revenue);
+			
 
 			trans.commit();
 		} catch (Exception e) {
