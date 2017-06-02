@@ -72,7 +72,7 @@ public class LogicHandler {
 	 * @returns the integer value of the given discount
 	 */
 	public int calculateDiscount(Customer customer) {
-		if (has10PercentOverall(customer) | has20PercentFromPeerGroup(customer)) {
+		if (has10PercentOverall(customer) || has20PercentFromPeerGroup(customer)) {
 			return 10;
 		} else {
 			return 0;
@@ -80,16 +80,14 @@ public class LogicHandler {
 	}
 	
 	private boolean has10PercentOverall(Customer customer) {
-		double user = getTotalUserRevenue(customer);
-		double total = getTotalRevenue();
+		double userRevenue = getTotalUserRevenue(customer);
+		double totalRevenue = getTotalRevenue();
 		
-		System.out.println(user + "userRevenue");
-		System.out.println(total + "totalRevenue");
-		
-		if (user / total > 0.1) {
-			System.out.println("has10Percent is true");
+		if (userRevenue / totalRevenue > 0.1) {
+			System.out.println(customer.getCUname() + " has10PercentOverall is true");
 			return true;
 		} else {
+			System.out.println(customer.getCUname() + " has10PercentOverall is false");
 			return false;
 		}
 	}
@@ -98,13 +96,11 @@ public class LogicHandler {
 		double userRevenue = getTotalUserRevenue(customer);
 		double peerGroupRevenue = getTotalPeerGroupRevenue(customer);
 		
-		System.out.println(userRevenue + "userRevenue");
-		System.out.println(peerGroupRevenue + "peerGroupRevenue");
-		
 		if( userRevenue / peerGroupRevenue > 0.2) {
-			System.out.println("has20PercentFromPeer is true");
+			System.out.println(customer.getCUname() + " has20PercentFromPeerGroup is true");
 			return true;
 		} else {
+			System.out.println(customer.getCUname() + " has20PercentFromPeerGroup is false");
 			return false;
 		}
 	}
@@ -174,13 +170,6 @@ public class LogicHandler {
 			qry.setParameter("minDate", minDate);
 			qry.setParameter("maxDate", maxDate);
 			revenue = (double) qry.uniqueResult();
-//			System.out.println(revenue);
-			
-//			Long newRevenue = (new Double(revenue)).longValue();
-//			revenue = newRevenue.longValue();
-//			System.out.println(newRevenue);
-//			System.out.println(revenue);
-			
 
 			trans.commit();
 		} catch (Exception e) {

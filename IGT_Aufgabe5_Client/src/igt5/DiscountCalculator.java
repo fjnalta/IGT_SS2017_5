@@ -22,16 +22,24 @@ public class DiscountCalculator {
 		Scanner s;
 		
 		try {
-			s = new Scanner(new File("/Users/ajo/dm.txt"));
+			s = new Scanner(new File("/Users/ajo/ajo.txt"));
 			customers = new ArrayList<String>();
 			while (s.hasNext()){
 			    customers.add(s.next());
 			}
 			s.close();
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		// Testing
+//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		System.out.print("Please insert the Username: ");
+//		String username = br.readLine();
+//		customers.add(username);
+		
+//		customers.add("ajotest1");
+//		customers.add("ajotest2");
 		
 		for(String str : customers) {
 			try {
